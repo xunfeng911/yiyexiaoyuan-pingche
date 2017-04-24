@@ -37,16 +37,16 @@ function getDefaultModules() {
         test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded!sass-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
       },
-      {
-        test: /\.scss/,
-        exclude: path.resolve(__dirname, 'src/public/css'),
-        loader: 'style!css?modules&localIdentName=[name]_[local]!sass?sourceMap=true'
-      },
-      {
-        test: /\.scss/,
-        include: path.resolve(__dirname, 'src/public/css'),
-        loader: 'style!css!sass?sourceMap=true'
-      },
+      // {
+      //   test: /\.scss/,
+      //   exclude: path.resolve(__dirname, 'src/public/css'),
+      //   loader: 'style!css?modules&localIdentName=[name]_[local]!sass?sourceMap=true'
+      // },
+      // {
+      //   test: /\.scss/,
+      //   include: path.resolve(__dirname, 'src/public/css'),
+      //   loader: 'style!css!sass?sourceMap=true'
+      // },
       {
         test: /\.less/,
         loader: 'style-loader!css-loader!less-loader!less-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'

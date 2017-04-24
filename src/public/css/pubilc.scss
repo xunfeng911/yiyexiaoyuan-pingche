@@ -1,1 +1,14 @@
 $backColor: #b73c37;
+$btnColor: red;
+
+.btn {
+  border: 0;
+  border-radius: 5px;
+  background: $btnColor;
+  color: #fff;
+}
+
+.index-cont {
+  position: relative;
+  top: 3rem;
+}
