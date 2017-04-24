@@ -1,0 +1,11 @@
+@import '../../../public/css/pubilc.scss';
+
+.car-card {
+  margin-top: 6px;
+  padding: 0 5px;
+  width: 100%;
+  &-li {
+    border-top: 1px solid $borderColor;
+     border-bottom: 1px solid $borderColor;
+  }
+}

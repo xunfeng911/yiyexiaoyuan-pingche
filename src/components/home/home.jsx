@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import classNames from 'classnames'
-import { DatePicker } from 'antd'
-import moment from 'moment'
-import './home.scss'
-import Header from '../common/header/header'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { DatePicker } from 'antd';
+import moment from 'moment';
+import './home.scss';
+
+import Header from '../common/header/header';
+import CarCard from './car_card/car_card';
 
 class Home extends Component {
   constructor(props) {
@@ -60,6 +62,9 @@ class Home extends Component {
             defaultValue={moment('2015-06-06', 'YYYY-MM-DD')}
             format="YYYY-MM-DD" disabledDate={this.disabledDate}
             allowClear={isFalse} popupStyle={DatePopupStyle} />
+          </div>
+          <div className="home-card">
+            <CarCard></CarCard>
           </div>
         </div>
       </div>
