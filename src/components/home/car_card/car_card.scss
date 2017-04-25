@@ -4,8 +4,31 @@
   margin-top: 6px;
   padding: 0 5px;
   width: 100%;
+  font-size: .9rem;
   &-li {
     border-top: 1px solid $borderColor;
-     border-bottom: 1px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
+    padding: 10px 14px;
+    >div {
+      height: 2rem;
+      line-height: 2rem;
+    }
+  }
+}
+.car-card-li-date, .car-card-li-place {
+  display: flex;
+  justify-content: space-between;
+  &-date,&-time,&-begin,&-end {
+    display: inline-block;
+    width: 5rem;
+  }
+}
+
+.car-card-li-num {
+  &-data {
+    float: right;
+  }
+  &-join {
+    color: $btnColor;
   }
 }

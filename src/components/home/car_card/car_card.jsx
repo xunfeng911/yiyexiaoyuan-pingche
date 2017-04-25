@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 // import classNames from 'classnames';
+import { Icon } from 'antd';
 import './car_card.scss';
 
 class CarCard extends Component {
@@ -15,18 +16,33 @@ class CarCard extends Component {
       upLimit: 5,
       upNow: 2,
       remark: 'aaaaaaa',
-      publishDate: '2017-02-23'
+      publishDate: '2017-02-23',
+      isEnd: false
     }
   }
 
 
   render() {
+    const cardData = this.props.cardData
+    const peoELms = []
+    const upLast = cardData.upLimit - cardData.upNow
+    for (let i = 0; i < cardData.upNow; i++) {
+      peoELms.push(
+        <span className="car-card-li-num-join"><Icon type="smile"/></span>
+      )
+    }
+    for (let i = 0; i < upLast; i++) {
+      peoELms.push(
+        <span className="car-card-li-num-end"><Icon type="smile-o"/></span>
+      )
+    }
     return (
       <div className="car-card">
         <div className="car-card-li">
           <div className="car-card-li-date">
-            <span>时间：</span>
+            <span>日期：</span>
             <span className="car-card-li-date-date strong-span">{this.props.cardData.carDate}</span>
+            <span>时间：</span>
             <span className="car-card-li-date-time strong-span">{this.props.cardData.carTime}</span>
           </div>
           <div className="car-card-li-place">
@@ -36,8 +52,7 @@ class CarCard extends Component {
             <span className="car-card-li-place-end strong-span">{this.props.cardData.carEnd}</span>
           </div>
           <div className="car-card-li-num">
-            <span className="car-card-li-num-join"></span>
-            <span className="car-card-li-num-leave"></span>
+            {peoELms}
             <span className="car-card-li-num-data strong-span">上限{this.props.cardData.upLimit}人,已有{this.props.cardData.upNow}人</span>
           </div>
           <div className="car-card-li-remark">
@@ -48,7 +63,9 @@ class CarCard extends Component {
             <span>发布于{this.props.cardData.publishDate}</span>
           </div>
           <div className="car-card-li-button">
-            <button>已完成</button>
+            {this.props.cardData.isEnd ?
+              <button className="car-card-li-button-end btn">已完成</button> :
+              <button className="car-card-li-button-bm btn">报名</button>}
           </div>
         </div>
       </div>
