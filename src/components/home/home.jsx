@@ -1,70 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { DatePicker } from 'antd';
-import moment from 'moment';
 import './home.scss';
 
 import Header from '../common/header/header';
 import CarCard from './car_card/car_card';
-
+import HomeDatePicker from './date_picker/date_picker';
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      date: null
+      date: null,
+      cards: [{carid: 1, carDate: '2017-04-24',carTime: '00:00-23:59',carBegin: '马总家',carEnd: '马夫人家',
+      upLimit: 5,upNow: 2,remark: 'aaaaaaa',publishDate: '2017-02-23',isEnd: true},
+      {carid:2, carDate: '2017-04-27',carTime: '00:00-23:59',carBegin: '游总家',carEnd: '游夫人家',
+      upLimit: 5,upNow: 2,remark: 'aaaaaaa',publishDate: '2017-02-23',isEnd: false}
+      ]
     }
   }
-
-  range = (start, end) => {
-    const result = [];
-    for (let i = start; i < end; i++) {
-      result.push(i);
-    }
-    return result;
+  static childContextTypes = {
+    // 验证context属性
+    text: PropTypes.string
   }
-
-  disabledDate = (current) => {
-     return current && current.valueOf() < Date.now();
+  getChildContext () {
+    // 能传递给所有子组件，不需要层级props获取
+    return {text: 'aaa'}
   }
-
-  disabledDateTime = () => {
-    return {
-      disabledHours: () => this.range(0, 24).splice(4, 20),
-      disabledMinutes: () => this.range(30, 60),
-      disabledSeconds: () => [55, 56]
-    };
+  // componentWillMount () {
+  //   // dom挂载前，ajax／定时器启动
+  // }
+  // componentDidMount () {
+  //   // dom挂载完成
+  // }
+  // componentWillUnmount () {
+  //   // 组件销毁时
+  // }
+  dateChange = (moment,value) => {
+    this.setState({
+      date: value
+    })
   }
   render() {
-    const isFalse = false;
+    // const isFalse = false;
     const btnClass = classNames({
       'btn': true,
       'home-btn': true
     })
-    const DatePickerStyle = {
-      display: 'inline-block',
-      border: '1px solid #bbb',
-      borderRight: 0,
-      borderLeft: 0,
-      width: '88%',
-      textAlign: 'center'
-    }
-    const DatePopupStyle = {
-
-    }
     return (
       <div className="home">
-        <Header text="一页校园"></Header>
+        <Header text="一页校园" isBack={true}></Header>
         <div className="index-cont">
           <Link to="/user"><button className={btnClass}>发起拼车</button></Link>
           <div className="home-date">
-            <DatePicker size="large" style={DatePickerStyle}
-            defaultValue={moment('2015-06-06', 'YYYY-MM-DD')}
-            format="YYYY-MM-DD" disabledDate={this.disabledDate}
-            allowClear={isFalse} popupStyle={DatePopupStyle} />
+            <HomeDatePicker dateChange={this.dateChange}/>
           </div>
           <div className="home-card">
-            <CarCard></CarCard>
+            {this.state.cards.map((card) => {
+              return ( <CarCard cardData={card} key={card.carid}></CarCard>)
+            })}
           </div>
         </div>
       </div>

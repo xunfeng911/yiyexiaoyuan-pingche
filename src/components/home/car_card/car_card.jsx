@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 // import classNames from 'classnames';
 import { Icon } from 'antd';
 import './car_card.scss';
@@ -9,6 +9,7 @@ class CarCard extends Component {
   }
   static defaultProps = {
     cardData: {
+      carid: 0,
       carDate: '2017-04-24',
       carTime: '00:00-23:59',
       carBegin: '马总家',
@@ -20,7 +21,10 @@ class CarCard extends Component {
       isEnd: false
     }
   }
-
+  static contextTypes = {
+    // 子组件获取context
+    text: PropTypes.string
+  }
 
   render() {
     const cardData = this.props.cardData
@@ -28,12 +32,12 @@ class CarCard extends Component {
     const upLast = cardData.upLimit - cardData.upNow
     for (let i = 0; i < cardData.upNow; i++) {
       peoELms.push(
-        <span className="car-card-li-num-join"><Icon type="smile"/></span>
+        <span key={'join' + i} className="car-card-li-num-join"><Icon type="smile"/></span>
       )
     }
     for (let i = 0; i < upLast; i++) {
       peoELms.push(
-        <span className="car-card-li-num-end"><Icon type="smile-o"/></span>
+        <span key={'end' + i} className="car-card-li-num-end"><Icon type="smile-o"/></span>
       )
     }
     return (
