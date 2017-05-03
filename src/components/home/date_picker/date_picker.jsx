@@ -19,7 +19,8 @@ class HomeDatePicker extends Component {
     return result;
   }
   disabledDate = (current) => {
-     return current && current.valueOf() < Date.now();
+    let setDate = Date.now() - 1000*60*60*24;
+     return current && current.valueOf() < setDate;
   }
   disabledDateTime = () => {
     return {
@@ -51,14 +52,16 @@ class HomeDatePicker extends Component {
       textAlign: 'center'
     }
     const DatePopupStyle = {
-
+      background: '#000'
     }
     return (
-      <DatePicker size="large" style={DatePickerStyle}
-        defaultValue={moment(new Date(), 'YYYY-MM-DD')}
-        format="YYYY-MM-DD" disabledDate={this.disabledDate}
-        allowClear={isFalse} popupStyle={DatePopupStyle}
-        onChange={this.props.dateChange}/>
+      <div className="datepicker">
+        <DatePicker size="large" style={DatePickerStyle}
+          defaultValue={moment(new Date(), 'YYYY-MM-DD')}
+          format="YYYY-MM-DD" disabledDate={this.disabledDate}
+          allowClear={isFalse} popupStyle={DatePopupStyle}
+          onChange={this.props.dateChange}/>
+      </div>
     )
   }
 }

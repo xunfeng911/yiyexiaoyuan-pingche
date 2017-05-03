@@ -10,14 +10,14 @@ class CarCard extends Component {
   static defaultProps = {
     cardData: {
       carid: 0,
-      carDate: '2017-04-24',
+      carDate: '2222-22-22',
       carTime: '00:00-23:59',
-      carBegin: '马总家',
-      carEnd: '马夫人家',
+      carBegin: '出发地点',
+      carEnd: '到达地点',
       upLimit: 5,
-      upNow: 2,
-      remark: 'aaaaaaa',
-      publishDate: '2017-02-23',
+      upNow: 0,
+      remark: '没有信息',
+      publishDate: '0000-00-00',
       isEnd: false
     }
   }
@@ -25,7 +25,6 @@ class CarCard extends Component {
     // 子组件获取context
     text: PropTypes.string
   }
-
   render() {
     const cardData = this.props.cardData
     const peoELms = []
