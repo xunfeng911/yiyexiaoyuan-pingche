@@ -8,7 +8,7 @@
     input {
       border: 0;
       width: 90%;
-      height: 3rem;
+      height: 2.4rem;
       font-size: .8rem;
       &:nth-child(1) {
         border-bottom: 2px solid $borderColor;
@@ -34,8 +34,6 @@
       border-radius: 5px;
       width: 45%;
       text-align: center;
-      font-size: 1.5rem;
-      letter-spacing:.5rem;
     }
   }
   &-btn {

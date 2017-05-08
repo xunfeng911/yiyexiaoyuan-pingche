@@ -1,7 +1,7 @@
 import {YYXY_SET_BACK} from '../action/index';
 import {USER_STATUS} from '../action/index';
 
-export const getUserInfo = (state = {isLogin: true, token: 'token', usrName: 'yyxy'}, action={}) => {
+export const getUserInfo = (state = {isLogin: false, token: 'token', usrName: 'yyxy'}, action={}) => {
   switch (action.type){
     case USER_STATUS:
       let {

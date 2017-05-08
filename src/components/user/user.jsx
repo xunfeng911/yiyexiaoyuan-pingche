@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import classNames from 'classnames';
 import './user.scss';
 
-import Header from '../common/header/header'
-
+import Header from '../common/header/header';
+import template from '../index';
 class User extends Component {
   static defaultProps = {
   }
@@ -16,9 +16,9 @@ class User extends Component {
   
   render () {
      return (
-       <Header isBack={false} isUser={true}></Header>
+       <Header history={this.props.history} back={false} user={true} title={'个人主页'}></Header>
      )
   }
 }
 
-export default User;
+export default template(User);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 // import CSSModules from 'react-css-modules';
 // import { Link } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+// import createHistory from 'history/createBrowserHistory';
 import template from '../../index';
 import {Icon} from 'antd';
 import './header.scss';
@@ -12,7 +12,7 @@ class Header extends Component {
     super(props)
 
     this.state = {
-      history: '',
+      history: this.props.history,
       params: '/login'
     }
   }
@@ -20,9 +20,9 @@ class Header extends Component {
   static defaultProps = {
   }
   componentWillMount () {
-    this.setState({
-      history: createHistory()
-    })
+    // this.setState({
+    //   history: createHistory()
+    // })
     let isLogin = this.props.getUserInfo.isLogin;
     if (isLogin) {
       this.setState({params: '/user'})
@@ -31,7 +31,10 @@ class Header extends Component {
     }
   }
   goToBack = () => {
-    this.state.history.push('/')
+    this.state.history.goBack();
+  }
+  goToUser = () => {
+    this.state.history.push(this.state.params);
   }
   render() {
     const headerClass = classNames({
@@ -40,19 +43,19 @@ class Header extends Component {
     })
     const backClass =classNames({
       'header-back': true,
-      'header-back-hidden': this.props.testGetTitle.back
+      'header-back-hidden': this.props.back
     })
     const UserClass =classNames({
       'header-user': true,
-      'header-user-hidden': this.props.testGetTitle.user
+      'header-user-hidden': this.props.user
     })
     return (
       <div className={headerClass}>
         <span className={backClass} onClick={this.goToBack}>
           <Icon type="left" />
         </span>
-        <span className="header-title">{this.props.testGetTitle.title}</span>
-        <span className={UserClass}>
+        <span className="header-title">{this.props.title}</span>
+        <span className={UserClass} onClick={this.goToUser}>
           <Icon type="user" ></Icon>
         </span>
       </div>

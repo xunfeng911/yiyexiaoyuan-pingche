@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import classNames from 'classnames';
 import { message } from 'antd';
+
 import template from '../index';
+import Header from '../common/header/header';
+
+import * as axios from '../../public/js/axios.js';
 import {createCode, createColor} from '../../public/js/common.js';
 import './login.scss';
 
@@ -53,10 +57,21 @@ class Login extends Component {
     // window.console.log(`${authCode},,,,${trueCode}`)
     if (authCode === trueCode) {
       if (testTel.test(usrTel) && usrPass !== '') {
-        message.success('test success');
-        setTimeout( () => {
-          this.props.history.push('/')
-        }, 1000);
+        const req = {
+          url: '',
+          data: {
+            usrTel: this.state.usrTel,
+            usrPass: this.state.usrPass
+          }
+        }
+        axios._post(req)
+        .then(res => {
+          window.console.log(res)
+          message.success('test success');
+          setTimeout( () => {
+            this.props.history.push('/')
+          }, 1000);
+        })
       } else {
         message.error('请完善登录信息！');
       }
@@ -66,22 +81,25 @@ class Login extends Component {
   }
   render () {
     return (
-      <div className="index-cont">
-        <div className="login">
-          <div className="login-usr">
-            <input type="text" value={this.state.usrTel} onChange={this.telChange} placeholder="请输入您的手机号" required/>
-            <input type="password" value={this.state.usrPass} onChange={this.passChange} placeholder="请输入您的密码" required/>
-          </div>
-          <div className="login-auth">
-            <input type="text" value={this.state.authCode} onChange={this.codeChange} placeholder="验证码" required/>
-            <span className="login-auth-true" style={this.state.codeColor} onClick={this.setCode} >{this.state.trueCode}</span>
-          </div>
-          <div className="login-btn">
-            <div className="login-btn-info">
-              <Link to="/user">重置密码</Link>
-              <Link to="/user">注册账号</Link>
+      <div>
+        <Header history={this.props.history} back={false} user={true} title={'一页登录'}></Header>
+        <div className="index-cont">
+          <div className="login">
+            <div className="login-usr">
+              <input type="text" value={this.state.usrTel} onChange={this.telChange} placeholder="请输入您的手机号" required/>
+              <input type="password" value={this.state.usrPass} onChange={this.passChange} placeholder="请输入您的密码" required/>
             </div>
-            <button className="login-btn-in btn" onClick={this.getLogin}>登录</button>
+            <div className="login-auth">
+              <input type="text" value={this.state.authCode} onChange={this.codeChange} placeholder="验证码" required/>
+              <span className="login-auth-true code" style={this.state.codeColor} onClick={this.setCode} >{this.state.trueCode}</span>
+            </div>
+            <div className="login-btn">
+              <div className="login-btn-info">
+                <Link to="/reset">重置密码</Link>
+                <Link to="/register">注册账号</Link>
+              </div>
+              <button className="login-btn-in btn" onClick={this.getLogin}>登录</button>
+            </div>
           </div>
         </div>
       </div>

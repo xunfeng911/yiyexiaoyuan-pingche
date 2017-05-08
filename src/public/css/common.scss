@@ -4,7 +4,7 @@
   border-radius: 5px;
   background: $btnColor;
   color: #fff;
-  font-size: 1rem;
+  font-size: .9rem;
 }
 body {
   width:100%;
@@ -19,4 +19,11 @@ body {
 
 .strong-span {
   color: #000;
+}
+.code {
+  font-size: 1.5rem;
+  letter-spacing:.5rem;
+}
+.disable {
+  background: $btnDis !important;
 }
