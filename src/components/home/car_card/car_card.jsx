@@ -6,6 +6,7 @@ import './car_card.scss';
 class CarCard extends Component {
   constructor(props) {
     super(props)
+    this.state = this.props.cardData
   }
   static defaultProps = {
     cardData: {
@@ -25,8 +26,13 @@ class CarCard extends Component {
     // 子组件获取context
     text: PropTypes.string
   }
+   goUser = () => {
+     this.setState({
+       isEnd: true
+     })
+  }
   render() {
-    const cardData = this.props.cardData
+    const cardData = this.state
     const peoELms = []
     const upLast = cardData.upLimit - cardData.upNow
     for (let i = 0; i < cardData.upNow; i++) {
@@ -44,31 +50,31 @@ class CarCard extends Component {
         <div className="car-card-li">
           <div className="car-card-li-date">
             <span>日期：</span>
-            <span className="car-card-li-date-date strong-span">{this.props.cardData.carDate}</span>
+            <span className="car-card-li-date-date strong-span">{this.state.carDate}</span>
             <span>时间：</span>
-            <span className="car-card-li-date-time strong-span">{this.props.cardData.carTime}</span>
+            <span className="car-card-li-date-time strong-span">{this.state.carTime}</span>
           </div>
           <div className="car-card-li-place">
             <span>出发：</span>
-            <span className="car-card-li-place-begin strong-span">{this.props.cardData.carBegin}</span>
+            <span className="car-card-li-place-begin strong-span">{this.state.carBegin}</span>
             <span>到达：</span>
-            <span className="car-card-li-place-end strong-span">{this.props.cardData.carEnd}</span>
+            <span className="car-card-li-place-end strong-span">{this.state.carEnd}</span>
           </div>
           <div className="car-card-li-num">
             {peoELms}
-            <span className="car-card-li-num-data strong-span">上限{this.props.cardData.upLimit}人,已有{this.props.cardData.upNow}人</span>
+            <span className="car-card-li-num-data strong-span">上限{this.state.upLimit}人,已有{this.state.upNow}人</span>
           </div>
           <div className="car-card-li-remark">
             <span>备注：</span>
-            <span className="car-card-li-remark-info">{this.props.cardData.remark}</span>
+            <span className="car-card-li-remark-info">{this.state.remark}</span>
           </div>
           <div className="car-card-li-issue">
-            <span>发布于{this.props.cardData.publishDate}</span>
+            <span>发布于{this.state.publishDate}</span>
           </div>
           <div className="car-card-li-button">
-            {this.props.cardData.isEnd ?
+            {this.state.isEnd ?
               <button className="car-card-li-button-end btn">已完成</button> :
-              <button className="car-card-li-button-bm btn">报名</button>}
+              <button className="car-card-li-button-bm btn" onClick={this.goUser}>报名</button>}
           </div>
         </div>
       </div>

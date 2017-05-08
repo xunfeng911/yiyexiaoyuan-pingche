@@ -6,6 +6,7 @@
   ],
   "plugins": [
     ["import", { "libraryName": "antd", "style": true }],
+    // ["import", { "style": "css", "libraryName": "antd-mobile" },{ "libraryName": "antd", "style": true }],
     "transform-es2015-typeof-symbol",
   ]
 }

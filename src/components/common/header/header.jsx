@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 // import CSSModules from 'react-css-modules';
+// import { Link } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import template from '../../index';
 import {Icon} from 'antd';
 import './header.scss';
 
@@ -9,15 +12,27 @@ class Header extends Component {
     super(props)
 
     this.state = {
+      history: '',
+      params: '/login'
     }
   }
 
   static defaultProps = {
-    text: '一页校园',
-    isBack: false,
-    isUser: false
   }
-
+  componentWillMount () {
+    this.setState({
+      history: createHistory()
+    })
+    let isLogin = this.props.getUserInfo.isLogin;
+    if (isLogin) {
+      this.setState({params: '/user'})
+    } else {
+      this.setState({params: '/login'})
+    }
+  }
+  goToBack = () => {
+    this.state.history.push('/')
+  }
   render() {
     const headerClass = classNames({
       'header': true
@@ -25,24 +40,24 @@ class Header extends Component {
     })
     const backClass =classNames({
       'header-back': true,
-      'header-back-hidden': this.props.isBack
+      'header-back-hidden': this.props.testGetTitle.back
     })
     const UserClass =classNames({
       'header-user': true,
-      'header-user-hidden': this.props.isUser
+      'header-user-hidden': this.props.testGetTitle.user
     })
     return (
       <div className={headerClass}>
-        <span className={backClass}>
+        <span className={backClass} onClick={this.goToBack}>
           <Icon type="left" />
         </span>
-        <span className="header-title">{this.props.text}</span>
+        <span className="header-title">{this.props.testGetTitle.title}</span>
         <span className={UserClass}>
-          <Icon type="user"></Icon>
+          <Icon type="user" ></Icon>
         </span>
       </div>
     )
   }
 }
 
-export default Header;
+export default template(Header);

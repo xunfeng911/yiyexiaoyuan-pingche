@@ -1,15 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import template from '../index';
 import './home.scss';
 
-import Header from '../common/header/header';
+// import Header from '../common/header/header';
 import CarCard from './car_card/car_card';
-import HomeDatePicker from './date_picker/date_picker';
+import HomeDatePicker from '../common/date_picker/date_picker';
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      bbb: 'http://www.w3school.com.cn/i/eg_tulip.jpg',
+      newImg: 'b',
       date: null,
       cards: [{carid: 1, carDate: '2017-04-24',carTime: '00:00-23:59',carBegin: '马总家',carEnd: '马夫人家',
       upLimit: 5,upNow: 2,remark: 'aaaaaaa',publishDate: '2017-02-23',isEnd: true},
@@ -26,11 +29,35 @@ class Home extends Component {
     // 能传递给所有子组件，不需要层级props获取
     return {text: 'aaa'}
   }
-  // componentWillMount () {
-  //   // dom挂载前，ajax／定时器启动
-  // }
+  componentWillMount () {
+    // dom挂载前，ajax／定时器启动
+    let action = {
+      back: true,
+      title: '一页校园',
+      user: false
+    }
+    this.props.setBack(action);
+  }
   // componentDidMount () {
-  //   // dom挂载完成
+  //   let imgSet = (image) => {
+  //     let canvas = document.createElement('canvas');
+  //     canvas.width = image.width;
+  //     canvas.height = image.height;
+  //     window.console.log(canvas)
+  //     canvas.getContext("2d").drawImage(image, 0, 0);
+  //     let url = canvas.toDataURL('image/png');
+  //     window.console.log(url)
+  //     return url
+  //   }
+  //   let img = new Image();
+  //   img.setAttribute('crossOrigin', 'anonymous')
+  //   img.src = 'https://huzidaha.github.io/static/assets/img/wechat-user.jpeg';
+  //   window.console.log(img)
+  //   imgSet(img)
+  //   let bbb = imgSet(img)
+  //   this.setState({
+  //     newImg: bbb
+  //   })
   // }
   // componentWillUnmount () {
   //   // 组件销毁时
@@ -47,16 +74,15 @@ class Home extends Component {
       'home-btn': true
     })
     return (
-      <div className="home">
-        <Header text="一页校园" isBack={true}></Header>
-        <div className="index-cont">
+      <div className="index-cont">
+        <div className="home">
           <Link to="/user"><button className={btnClass}>发起拼车</button></Link>
           <div className="home-date">
             <HomeDatePicker dateChange={this.dateChange}/>
           </div>
           <div className="home-card">
-            {this.state.cards.map((card) => {
-              return ( <CarCard cardData={card} key={card.carid}></CarCard>)
+            {this.state.cards.map((card, index) => {
+              return ( <CarCard cardData={card}  key={index}></CarCard>)
             })}
           </div>
         </div>
@@ -66,4 +92,4 @@ class Home extends Component {
 
 }
 
-export default Home
+export default template(Home)

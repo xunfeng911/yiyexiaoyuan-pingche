@@ -1,19 +1,7 @@
-$backColor: #b73c37;
+$backColor: RGBA(183, 60, 55, 1.00);
 $btnColor: #e84e40;
 $borderColor: #bbb;
 $qianColor: rgba(222,222,222,1);
-.btn {
-  border: 0;
-  border-radius: 5px;
-  background: $btnColor;
-  color: #fff;
-}
-
-.index-cont {
-  position: relative;
-  top: 3rem;
-}
-
-.strong-span {
-  color: #000;
-}
+$bgColor: RGBA(240, 237, 240, 1.00);
+$bgWhite: #fff;
+$borderColor: RGBA(222, 222, 222, 1.00);

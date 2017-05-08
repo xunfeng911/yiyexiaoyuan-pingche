@@ -1,19 +1,22 @@
-import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as action from '../redux/action/index'
 
-import Home from '../components/home/home';
-import User from '../components/user/user';
-class Roots extends Component {
-    render() {
-        return (
-            <Router>
-                <Switch>
-                    <Route path='/' exact component={Home}/>
-                    <Route path='/user' exact component={User}></Route>
-                </Switch>
-            </Router>
-        );
+const Main = (component) => {
+  const mapStateToProps = (state) => {
+    let {
+      testGetTitle,
+      getUserInfo
+    } = state
+    return {
+      testGetTitle,
+      getUserInfo
     }
+  }
+
+  return connect(
+    mapStateToProps,
+    action
+    )(component)
 }
 
-export default Roots;
+export default Main;

@@ -3,16 +3,19 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from '../components/home/home';
 import User from '../components/user/user';
-import Index from '../components/index';
-
+import Login from '../components/login/login';
+import Header from '../components/common/header/header';
 const RouteConfig = () => (
-  <Router>
-    <Switch>
-    //  <Route path='/' exact component={Index}></Route>
-      <Route path='/' exact component={Home}/>
-      <Route path='/user' exact component={User}/>
-    </Switch>
-  </Router>
+    <div>
+      <Header></Header>
+      <Router>
+        <Switch>
+          <Route path='/' exact component={Home}/>
+          <Route path='/user' exact component={User}/>
+          <Route path='/login' exact component={Login}></Route>
+        </Switch>
+      </Router>
+    </div>
 )
 
-export default RouteConfig
+export default RouteConfig;
