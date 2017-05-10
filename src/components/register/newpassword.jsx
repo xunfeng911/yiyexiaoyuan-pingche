@@ -24,18 +24,22 @@ class NewPass extends Component {
     const { onePass, twoPass } = this.state;
     if (testPass.test(onePass)) {
       if (onePass === twoPass) {
+
         const req = {
-          url: '',
+          url: `user/update/password?password=${onePass}`,
           data: {
-            onePass: this.state.onePass,
-            twoPass: this.state.twoPass
-          }
+            password: this.state.onePass
+          },
+          token: this.props.getUserInfo.token
         }
+
         axios._post(req)
         .then(res => {
           if (!res.data.code) {
-            message.success('success');
-            this.props.history.push('/login');
+            message.success('修改密码成功!');
+            setTimeout( () => {
+              this.props.history.push('/user');
+            }, 100);
           } else {
             message.error(res.data)
           }

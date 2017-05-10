@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import classNames from 'classnames';
 import { message } from 'antd';
 
 import template from '../index';
@@ -58,25 +57,43 @@ class Login extends Component {
     if (authCode === trueCode) {
       if (testTel.test(usrTel) && usrPass !== '') {
         const req = {
-          url: '',
+          url: 'user/login',
           data: {
-            usrTel: this.state.usrTel,
-            usrPass: this.state.usrPass
+            mobile: this.state.usrTel,
+            password: this.state.usrPass
           }
         }
         axios._post(req)
-        .then(res => {
-          window.console.log(res)
-          message.success('test success');
-          setTimeout( () => {
-            this.props.history.push('/')
-          }, 1000);
+          .then(res => {
+            window.console.log(res)
+          this._logined(res.data)
         })
       } else {
         message.error('请完善登录信息！');
       }
     } else {
       message.error('验证码错误！');
+    }
+  }
+  _logined = (res) => {
+    if (res.code === 0) {
+      message.success('登录成功！');
+      const token = `${res.data.uid}_${res.data.token}`;
+      this.props.setUserLogin({ isLogin: true, token: token });
+      setTimeout( () => {
+        this.props.history.push('/newpass');
+      }, 1000);
+    } else if (res.code === 1) {
+      switch (res.msg) {
+        case '0':
+          message.error('密码错误！');
+          break;
+        case '-1':
+          message.error('账号未注册！');
+          break;
+        default:
+          
+      }
     }
   }
   render () {

@@ -7,7 +7,7 @@ import store from './redux/store/store';
 import 'normalize.css';
 import 'animate.css';
 import './public/css/common.scss';
-
+import './public/css/iconfont.css';
 
 const app = document.getElementById('app');
 

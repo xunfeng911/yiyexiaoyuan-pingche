@@ -1,15 +1,21 @@
 import {YYXY_SET_BACK} from '../action/index';
-import {USER_STATUS} from '../action/index';
+import {USER_SET_LOGIN, USER_SET_INFO} from '../action/index';
 
-export const getUserInfo = (state = {isLogin: false, token: 'token', usrName: 'yyxy'}, action={}) => {
+export const getUserInfo = (state = { isLogin: false, token: 'token', usrName: 'yyxy', usrQQ: 0, usrTel: 0}, action={}) => {
   switch (action.type){
-    case USER_STATUS:
+    case USER_SET_LOGIN:
       let {
         isLogin,
-        token,
-        usrName
+        token
       } = action.data;
-      return {isLogin, token, usrName};
+      return { isLogin, token };
+    case USER_SET_INFO:
+      let {
+        usrName,
+        usrQQ,
+        usrTel
+      } = action.data;
+      return {usrName, usrQQ, usrTel}
     default:
       return state;
   }
