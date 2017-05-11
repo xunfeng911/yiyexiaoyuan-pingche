@@ -49,6 +49,3 @@ export function getNewDate() {
   let myTime = `${year}-${month}-${date}`
   return myTime
 }
-
-import throttle from 'lodash.throttle';
-export default throttle;

@@ -9,6 +9,7 @@ import * as axios from '../../public/js/axios.js';
 import {createCode, createColor} from '../../public/js/common.js';
 import './login.scss';
 import throttle from 'lodash.throttle';
+
 class Login extends Component {
   constructor (props) {
     super(props)
@@ -49,11 +50,11 @@ class Login extends Component {
   // 登陆
   getLogin = () => {
     let testTel = /0?(13|14|15|18|17)[0-9]{9}/;
-    let {authCode, trueCode, usrTel, usrPass} = this.state;
-    // window.console.log(testTel.test(usrTel))
+    let { authCode, trueCode, usrTel, usrPass } = this.state;
+    
     authCode = authCode.toUpperCase();
     trueCode = trueCode.toUpperCase();
-    // window.console.log(`${authCode},,,,${trueCode}`)
+    
     if (authCode === trueCode) {
       if (testTel.test(usrTel) && usrPass !== '') {
         this._logined()

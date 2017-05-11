@@ -5,7 +5,7 @@ import template from '../index';
 import Header from '../common/header/header';
 
 import * as axios from '../../public/js/axios.js';
-import throttle from '../../public/js/common.js';
+import throttle from 'lodash.throttle';
 import './user.scss';
 
 class SetQQ extends Component {
@@ -22,7 +22,7 @@ class SetQQ extends Component {
     const usrQQ = this.state.usrQQ;
     const testQQ = /[1-9]([0-9]{5,12})/;
     if (testQQ.test(usrQQ)) {
-      throttle(this._send(), 5000, false, false)
+      this._send()
     } else {
       message.error('QQ号为6-13位数字');
     }
@@ -53,7 +53,7 @@ class SetQQ extends Component {
         <div className="index-cont">
           <div className="set">
             <input type="text" value={this.state.usrQQ} onChange={this.qqChange} className="set-input" placeholder="请填入真实QQ号提高拼车效率" required />
-            <button className="set-btn btn" onClick={this.sendQQ}>修改</button>
+            <button className="set-btn btn" onClick={throttle(this.sendQQ, 5000)}>修改</button>
           </div>
         </div>
       </div>
