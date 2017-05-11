@@ -20,7 +20,11 @@
   justify-content: space-between;
   &-date,&-time,&-begin,&-end {
     display: inline-block;
-    width: 5rem;
+  }
+  >div {
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -50,8 +54,10 @@
 
 .car-card-li-button {
   text-align: right;
+  margin-top: -1.2rem;
   &-end, &-bm {
     width: 4rem;
+    height: 2.4rem;
   }
   &-end {
     background: $borderColor !important;

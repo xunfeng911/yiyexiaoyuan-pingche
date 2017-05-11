@@ -7,10 +7,11 @@ import template from '../index';
 import Header from '../common/header/header';
 import CarCard from './car_card/car_card';
 import HomeDatePicker from '../common/date_picker/date_picker';
+import PcModal from '../common/modal/modal';
 
 import './home.scss';
 import * as axios from '../../public/js/axios.js';
-import { getNewDate } from '../../public/js/common.js';
+import { getNewDate, isUserLogined } from '../../public/js/common.js';
 
 class Home extends Component {
   constructor(props) {
@@ -26,7 +27,10 @@ class Home extends Component {
         startPos: '马总家', arrivePos: '马夫人家',
         curtMember: 2, maxMember: 5,
         message: 'aaaaaaa', pubTime: '2017-02-23'
-      }]
+      }],
+      modal_text: '你是傻逼嘛',
+      modalShow: false,
+      cardIndex: 0
     }
   }
   static childContextTypes = {
@@ -65,15 +69,14 @@ class Home extends Component {
   // componentWillUnmount () {
   //   // 组件销毁时
   // }
+
+  // 修改日期
   dateChange = (moment, value) => {
     this.setState({date: value})
     this._getHome(value)
     setTimeout( () => {
       message.success(this.state.date)
     }, 10);
-  }
-  goUser = () => {
-    this.props.history.push('/user');
   }
   _getHome(date) {
     const req = {
@@ -87,6 +90,38 @@ class Home extends Component {
         this.setState({cards: res.data.data})
       }
     })
+  }
+
+  // 报名
+  goUser = (index) => {
+    let _goUser = () => { this.setState({ cardIndex: index, modalShow: true }) };
+    isUserLogined.bind(this)(_goUser);
+  }
+  _signed = () => {
+    const cardIndex = this.state.cardIndex;
+    const iid = this.state.cards[cardIndex].iid;
+    const req = {
+      url: `member/sign/${iid}`,
+      data: {},
+      token: this.props.getUserInfo.token
+    }
+    axios._put(req)
+    .then(res => {
+      window.console.log(res)
+      if (!res.data.code) {
+        message.success('报名成功！');
+      } else {
+        message.warning(res.data.msg);
+      }
+    })
+  }
+  // 弹窗
+  modalConfirm = () => {
+    this.setState({ modalShow: false })
+    this._signed()
+  }
+  modalCancel = () => {
+    this.setState({ modalShow: false })
   }
   render() {
     // const isFalse = false;
@@ -105,11 +140,13 @@ class Home extends Component {
             </div>
             <div className="home-card">
               {this.state.cards.map((card, index) => {
-                return ( <CarCard cardData={card} goUser={this.goUser} history={this.props.history} key={index}></CarCard>)
+                return ( <CarCard cardData={card} goUser={this.goUser.bind(this, index)} history={this.props.history} key={index}></CarCard>)
               })}
             </div>
           </div>
         </div>
+        <PcModal modalConfirm={this.modalConfirm} modalCancel={this.modalCancel}
+          text={this.state.modal_text} isShow={this.state.modalShow} />
       </div>
     )
   }

@@ -3,6 +3,8 @@ import { Icon } from 'antd';
 
 import './car_card.scss';
 import { getMyDate } from '../../../public/js/common.js';
+import debounce from 'lodash.debounce';
+import moment from 'moment';
 
 class CarCard extends Component {
   constructor(props) {
@@ -19,6 +21,22 @@ class CarCard extends Component {
     history: PropTypes.object
   }
   componentWillMount() {
+    this._init()
+  }
+  _init = () => {
+    const startDate = getMyDate(this.props.cardData.startDate);
+    let theDate = `${startDate}  ${this.props.cardData.startTimeMinHour}:${this.props.cardData.startTimeMinMin}`;
+    // window.console.log(theDate);
+    let nowDate = moment().format('YYYY-MM-DD mm:ss');
+    // window.console.log(nowDate)
+    // window.console.log(Date.parse(theDate))
+    // window.console.log(Date.parse(nowDate))
+    let endDate = theDate + 30 * 60 * 60;
+    if (nowDate < endDate) {
+      this.setState({ isEnd: true })
+    } else {
+      return false
+    }
   }
   render() {
     const startDate = getMyDate(this.props.cardData.startDate);
@@ -40,19 +58,27 @@ class CarCard extends Component {
       <div className="car-card">
         <div className="car-card-li">
           <div className="car-card-li-date">
-            <span>日期：</span>
-            <span className="car-card-li-date-date strong-span">{startDate}</span>
-            <span>时间：</span>
-            <span className="car-card-li-date-time strong-span">
-              {this.props.cardData.startTimeMinHour}:{this.props.cardData.startTimeMinMin}-
-              {this.props.cardData.startTimeMaxHour}:{this.props.cardData.startTimeMaxMin}
-            </span>
+            <div>
+              <span>日期：</span>
+              <span className="car-card-li-date-date strong-span">{startDate}</span>
+            </div>
+            <div>
+              <span>时间：</span>
+              <span className="car-card-li-date-time strong-span">
+                {this.props.cardData.startTimeMinHour}:{this.props.cardData.startTimeMinMin}-
+                {this.props.cardData.startTimeMaxHour}:{this.props.cardData.startTimeMaxMin}
+              </span>
+            </div>
           </div>
           <div className="car-card-li-place">
-            <span>出发：</span>
-            <span className="car-card-li-place-begin strong-span">{this.props.cardData.startPos}</span>
-            <span>到达：</span>
-            <span className="car-card-li-place-end strong-span">{this.props.cardData.arrivePos}</span>
+            <div>
+              <span>出发：</span>
+              <span className="car-card-li-place-begin strong-span">{this.props.cardData.startPos}</span>
+            </div>
+            <div>
+              <span>到达：</span>
+              <span className="car-card-li-place-end strong-span">{this.props.cardData.arrivePos}</span>
+            </div>
           </div>
           <div className="car-card-li-num">
             {peoELms}
@@ -68,7 +94,7 @@ class CarCard extends Component {
           <div className="car-card-li-button">
             {this.props.cardData.isEnd ?
               <button className="car-card-li-button-end btn">已完成</button> :
-              <button className="car-card-li-button-bm btn" onClick={this.props.goUser}>报名</button>}
+              <button className="car-card-li-button-bm btn" onClick={debounce(this.props.goUser, 200)}>报名</button>}
           </div>
         </div>
       </div>

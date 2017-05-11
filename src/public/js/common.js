@@ -49,3 +49,17 @@ export function getNewDate() {
   let myTime = `${year}-${month}-${date}`
   return myTime
 }
+import { message } from 'antd';
+export function isUserLogined(fn) {
+  let _vm = this;
+  if (_vm.props.getUserInfo.token !== null) {
+    window.console.log('token')
+    fn()
+  } else {
+    window.console.log('no token')
+    message.warning('您还没有登录，请先登录~');
+      setTimeout( () => {
+        _vm.props.history.push('/login')
+      }, 100);
+  }
+}
