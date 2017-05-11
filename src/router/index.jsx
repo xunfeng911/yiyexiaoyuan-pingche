@@ -2,10 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from '../components/home/home';
+import Announce from '../components/announce/announce';
 import User from '../components/user/user';
 import UsrInfo from '../components/user/usr_info';
 import SetQQ from '../components/user/set_qq';
 import SetName from '../components/user/set_name';
+
 import Login from '../components/login/login';
 import Register from '../components/register/register';
 import Reset from '../components/register/reset';
@@ -15,6 +17,7 @@ const RouteConfig = () => (
   <Router>
     <Switch>
       <Route path='/' exact component={Home} />
+      <Route path='/anc' exact component={Announce} />
       <Route path='/user' exact component={User} />
       <Route path='/login' exact component={Login} />
       <Route path='/register' exact component={Register} />
@@ -26,5 +29,4 @@ const RouteConfig = () => (
     </Switch>
   </Router>
 )
-
 export default RouteConfig;

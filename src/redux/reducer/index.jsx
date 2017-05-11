@@ -8,14 +8,14 @@ export const getUserInfo = (state = { isLogin: false, token: 'token', usrName: '
         isLogin,
         token
       } = action.data;
-      return { isLogin, token };
+      return { ...state, isLogin, token };
     case USER_SET_INFO:
       let {
         usrName,
         usrQQ,
         usrTel
       } = action.data;
-      return {usrName, usrQQ, usrTel}
+      return { ...state, usrName, usrQQ, usrTel };
     default:
       return state;
   }

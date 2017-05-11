@@ -11,7 +11,6 @@ import './public/css/iconfont.css';
 
 const app = document.getElementById('app');
 
-
 store.subscribe(() => { //监听state变化
   // window.console.log(store.getState())
 });

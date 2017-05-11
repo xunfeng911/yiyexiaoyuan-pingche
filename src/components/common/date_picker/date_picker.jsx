@@ -8,7 +8,15 @@ class HomeDatePicker extends Component {
     super(props)
   }
   static defaultProps = {
-    dateChange: () => {}
+    dateChange: () => { },
+    DatePickerStyle: {
+      display: 'inline-block',
+      border: '1px solid #bbb',
+      borderRight: 0,
+      borderLeft: 0,
+      width: '88%',
+      textAlign: 'center'
+    }
   }
 
   range = (start, end) => {
@@ -43,20 +51,12 @@ class HomeDatePicker extends Component {
   // }
   render() {
     const isFalse = false;
-    const DatePickerStyle = {
-      display: 'inline-block',
-      border: '1px solid #bbb',
-      borderRight: 0,
-      borderLeft: 0,
-      width: '88%',
-      textAlign: 'center'
-    }
     const DatePopupStyle = {
       background: '#000'
     }
     return (
       <div className="datepicker">
-        <DatePicker size="large" style={DatePickerStyle}
+        <DatePicker size="large" style={this.props.DatePickerStyle}
           defaultValue={moment(new Date(), 'YYYY-MM-DD')}
           format="YYYY-MM-DD" disabledDate={this.disabledDate}
           allowClear={isFalse} popupStyle={DatePopupStyle}

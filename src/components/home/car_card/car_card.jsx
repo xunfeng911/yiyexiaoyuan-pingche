@@ -1,12 +1,15 @@
 import React, {Component, PropTypes} from 'react';
-// import classNames from 'classnames';
 import { Icon } from 'antd';
+
 import './car_card.scss';
+import { getMyDate } from '../../../public/js/common.js';
 
 class CarCard extends Component {
   constructor(props) {
     super(props)
-    this.state = this.props.cardData
+    this.state = {
+      isEnd: false
+    }
   }
   static defaultProps = {
     goUser: () => {}
@@ -15,11 +18,15 @@ class CarCard extends Component {
     // 子组件获取context
     history: PropTypes.object
   }
+  componentWillMount() {
+  }
   render() {
+    const startDate = getMyDate(this.props.cardData.startDate);
+    const pubTime = getMyDate(this.props.cardData.pubTime);
     const cardData = this.props.cardData
     const peoELms = []
-    const upLast = cardData.upLimit - cardData.upNow
-    for (let i = 0; i < cardData.upNow; i++) {
+    const upLast = cardData.maxMember - cardData.curtMember
+    for (let i = 0; i < cardData.curtMember; i++) {
       peoELms.push(
         <span key={'join' + i} className="car-card-li-num-join"><Icon type="smile"/></span>
       )
@@ -34,26 +41,29 @@ class CarCard extends Component {
         <div className="car-card-li">
           <div className="car-card-li-date">
             <span>日期：</span>
-            <span className="car-card-li-date-date strong-span">{this.props.cardData.carDate}</span>
+            <span className="car-card-li-date-date strong-span">{startDate}</span>
             <span>时间：</span>
-            <span className="car-card-li-date-time strong-span">{this.props.cardData.carTime}</span>
+            <span className="car-card-li-date-time strong-span">
+              {this.props.cardData.startTimeMinHour}:{this.props.cardData.startTimeMinMin}-
+              {this.props.cardData.startTimeMaxHour}:{this.props.cardData.startTimeMaxMin}
+            </span>
           </div>
           <div className="car-card-li-place">
             <span>出发：</span>
-            <span className="car-card-li-place-begin strong-span">{this.props.cardData.carBegin}</span>
+            <span className="car-card-li-place-begin strong-span">{this.props.cardData.startPos}</span>
             <span>到达：</span>
-            <span className="car-card-li-place-end strong-span">{this.props.cardData.carEnd}</span>
+            <span className="car-card-li-place-end strong-span">{this.props.cardData.arrivePos}</span>
           </div>
           <div className="car-card-li-num">
             {peoELms}
-            <span className="car-card-li-num-data strong-span">上限{this.props.cardData.upLimit}人,已有{this.props.cardData.upNow}人</span>
+            <span className="car-card-li-num-data strong-span">上限{this.props.cardData.maxMember}人,已有{this.props.cardData.curtMember}人</span>
           </div>
           <div className="car-card-li-remark">
             <span>备注：</span>
-            <span className="car-card-li-remark-info">{this.props.cardData.remark}</span>
+            <span className="car-card-li-remark-info">{this.props.cardData.message}</span>
           </div>
           <div className="car-card-li-issue">
-            <span>发布于{this.props.cardData.publishDate}</span>
+            <span>发布于{pubTime}</span>
           </div>
           <div className="car-card-li-button">
             {this.props.cardData.isEnd ?

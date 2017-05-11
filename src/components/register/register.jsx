@@ -99,15 +99,15 @@ class Register extends Component {
   }
   _sendCode = () => {
     const req = {
-      url: '',
+      url: `validate/code/0/${this.state.usrTel}`,
       data: {
-        usrTel: this.state.usrTel
       }
     }
-    axios._post(req)
+    axios._get(req)
     .then( res => {
       switch (res.data.code) {
-        case 1:
+        case 0:
+          message.success('验证码发送成功，请查收！');
           // 倒计时
           this.setState({isLoading: true});
           this.btnCode.disabled = true;
@@ -126,7 +126,9 @@ class Register extends Component {
             }
           }, 1000);
           break;
-      
+        case 1:
+          message.error(res.data.msg);
+          break;
         default:
           break;
       }
@@ -134,17 +136,22 @@ class Register extends Component {
   }
   _sendInfo = () => {
     const req = {
-      url: '',
+      url: `user/register/${this.state.phoneCode}`,
       data: {
-        usrTel: this.state.usrTel,
-        pass: this.state.onePass,
-        phoneCode: this.state.phoneCode
+        mobile: this.state.usrTel,
+        password: this.state.onePass
       }
     }
     axios._post(req)
     .then( res => {
-      this.props.history.push('/');
-      window.console.log(res)
+      if (!res.data.code) {
+        message.success('注册!成功！');
+        setTimeout( () => {
+          this.props.history.push('/');
+        }, 1000);
+      } else {
+        message.error(res.data.msg);
+      }
     })
   }
 

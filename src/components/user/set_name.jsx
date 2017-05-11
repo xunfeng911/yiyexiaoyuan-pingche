@@ -21,22 +21,30 @@ class SetName extends Component {
     const usrName = this.state.usrName;
     const testName = /[A-Za-z0-9_\-\u4e00-\u9fa5]+/;
     if (testName.test(usrName)) {
-      const req = {
-        url: '',
-        data: {
-          usrName: usrName
-        },
-        token: this.props.getUsrLogin.token
-      }
-      axios._post(req)
-      .then(res => {
-        window.console.log(res)
-      })
+      this._send()
     } else {
       message.error('用户名不合法！');
     }
   }
-
+  _send = () => {
+    const req = {
+      url: `user/update/username/${this.state.usrName}`,
+      data: {},
+      token: this.props.getUsrLogin.token
+    }
+    axios._post(req)
+    .then(res => {
+      window.console.log(res);
+      if (!res.data.code) {
+        message.success('修改昵称成功！');
+        setTimeout( () => {
+          this.props.history.push('/user');
+        }, 1000);
+      } else {
+        
+      }
+    })
+  }
   render() {
     return (
       <div>

@@ -19,3 +19,36 @@ export function createColor () {
   }
   return color
 }
+
+export function getMyDate(time) {
+  const datetime = new Date(time)
+  let year = datetime.getFullYear()
+  let month = datetime.getMonth() + 1
+  let date = datetime.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (date < 10) {
+    date = '0' + date
+  }
+  let myTime = `${year}-${month}-${date}`
+  return myTime
+}
+
+export function getNewDate() {
+  let datetime = new Date()
+  let year = datetime.getFullYear()
+  let month = datetime.getMonth() + 1
+  let date = datetime.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (date < 10) {
+    date = '0' + date
+  }
+  let myTime = `${year}-${month}-${date}`
+  return myTime
+}
+
+import throttle from 'lodash.throttle';
+export default throttle;

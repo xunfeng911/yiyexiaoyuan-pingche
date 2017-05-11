@@ -99,16 +99,15 @@ class Reset extends Component {
   }
   _sendCode = () => {
     const req = {
-      url: '',
-      data: {
-        usrTel: this.state.usrTel
-      }
+      url: `validate/code/1/${this.state.usrTel}`,
+      data: {}
     }
-    axios._post(req)
+    axios._get(req)
     .then( res => {
       switch (res.data.code) {
-        case 1:
+        case 0:
           // 倒计时
+          message.success('验证码发送成功，请查收！');
           this.setState({isLoading: true});
           this.btnCode.disabled = true;
           let timer = null;
@@ -121,12 +120,13 @@ class Reset extends Component {
             } else {
               clearInterval(timer);
               this.btnCode.disabled = false;
-              window.console.log(this.btnCode)
               this.setState({btnText: '重新获取验证码', isLoading: false});
             }
           }, 1000);
           break;
-      
+        case 1:
+          message.error(res.data.msg);
+          break;
         default:
           break;
       }
@@ -134,17 +134,22 @@ class Reset extends Component {
   }
   _sendInfo = () => {
     const req = {
-      url: '',
+      url: `user/reset/password/${this.state.phoneCode}`,
       data: {
-        usrTel: this.state.usrTel,
-        pass: this.state.onePass,
-        phoneCode: this.state.phoneCode
+        mobile: this.state.usrTel,
+        password: this.state.onePass
       }
     }
-    axios._post(req)
-    .then( res => {
-      this.props.history.push('/');
-      window.console.log(res)
+    axios._put(req)
+    .then(res => {
+      if (!res.data.code) {
+        message.success('重置密码成功！');
+        setTimeout( () => {
+          this.props.history.push('/');
+        }, 1000);
+      } else {
+        message.error(res.data.msg);
+      }
     })
   }
 

@@ -53,6 +53,11 @@
 // 选中的按钮
 .ant-calendar-selected-day .ant-calendar-date{
   background: $btnColor;
+  color: #fff !important;
+}
+.ant-calendar-date:active {
+  background: $btnColor !important;
+  color: #fff !important;
 }
 .ant-calendar-today .ant-calendar-date {
   border-color: $btnColor;

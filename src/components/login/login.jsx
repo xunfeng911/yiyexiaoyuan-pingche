@@ -8,7 +8,7 @@ import Header from '../common/header/header';
 import * as axios from '../../public/js/axios.js';
 import {createCode, createColor} from '../../public/js/common.js';
 import './login.scss';
-
+import throttle from 'lodash.throttle';
 class Login extends Component {
   constructor (props) {
     super(props)
@@ -56,18 +56,7 @@ class Login extends Component {
     // window.console.log(`${authCode},,,,${trueCode}`)
     if (authCode === trueCode) {
       if (testTel.test(usrTel) && usrPass !== '') {
-        const req = {
-          url: 'user/login',
-          data: {
-            mobile: this.state.usrTel,
-            password: this.state.usrPass
-          }
-        }
-        axios._post(req)
-          .then(res => {
-            window.console.log(res)
-          this._logined(res.data)
-        })
+        this._logined()
       } else {
         message.error('请完善登录信息！');
       }
@@ -75,26 +64,36 @@ class Login extends Component {
       message.error('验证码错误！');
     }
   }
-  _logined = (res) => {
-    if (res.code === 0) {
-      message.success('登录成功！');
-      const token = `${res.data.uid}_${res.data.token}`;
-      this.props.setUserLogin({ isLogin: true, token: token });
-      setTimeout( () => {
-        this.props.history.push('/newpass');
-      }, 1000);
-    } else if (res.code === 1) {
-      switch (res.msg) {
-        case '0':
-          message.error('密码错误！');
-          break;
-        case '-1':
-          message.error('账号未注册！');
-          break;
-        default:
-          
+  _logined = () => {
+    const req = {
+      url: 'user/login',
+      data: {
+        mobile: this.state.usrTel,
+        password: this.state.usrPass
       }
     }
+    axios._post(req)
+      .then(res => {
+        window.console.log(res)
+        if (res.data.code === 0) {
+          message.success('登录成功！');
+          const token = `${res.data.data.uid}_${res.data.data.token}`;
+          this.props.setUserLogin({ isLogin: true, token: token });
+          setTimeout( () => {
+            this.props.history.push('/');
+          }, 1000);
+        } else if (res.data.code === 1) {
+          switch (res.data.msg) {
+            case '0':
+              message.error('密码错误！');
+              break;
+            case '-1':
+              message.error('账号未注册！');
+              break;
+            default:
+          }
+        }
+    })
   }
   render () {
     return (
@@ -115,7 +114,7 @@ class Login extends Component {
                 <Link to="/reset">重置密码</Link>
                 <Link to="/register">注册账号</Link>
               </div>
-              <button className="login-btn-in btn" onClick={this.getLogin}>登录</button>
+              <button className="login-btn-in btn" onClick={throttle(this.getLogin, 5000)}>登录</button>
             </div>
           </div>
         </div>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import classNames from 'classnames';
-import {Icon} from 'antd';
+import { Icon, message } from 'antd';
 import Header from '../common/header/header';
 import template from '../index';
 
 import './user.scss';
+import * as axios from '../../public/js/axios.js';
 
 class User extends Component {
   static defaultProps = {}
@@ -15,7 +16,28 @@ class User extends Component {
       usrName: '黑天很黑'
     }
   }
-
+  componentWillMount() {
+    this._init()
+  }
+  _init = () => {
+    const req = {
+      url: 'user/info',
+      token: this.props.getUserInfo.token
+    }
+    axios._get(req).then(res => {
+      if (!res.data.code) {
+        window.console.log(res)
+        const data = {
+          usrName: res.data.data.userName,
+          usrQQ: res.data.data.qq,
+          usrTel: res.data.data.mobile
+        }
+        this.props.setUserInfo(data)
+      } else {
+        message.error(res.data.msg);
+      }
+    })
+  }
   render() {
     return (
       <div>

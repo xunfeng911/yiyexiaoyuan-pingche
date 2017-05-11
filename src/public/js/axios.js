@@ -7,13 +7,13 @@ export let http = axios.create({
   baseURL: 'http://stormma.ngrok.cc/api',
   timeout: 5000,
   withCredentials: true, // 允许跨域 cookie
-  headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json'}
+  headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' }
 });
 
 
 // get
 export const _get = (req) => {
-  return http.get({url: req.url, params: req.data, headers: {'Authorization': req.token|| ''} })
+  return http({method: 'get', url: `/${req.url}`, params: req.data, headers: {'Authorization': req.token|| ''} })
 }
 
 // put

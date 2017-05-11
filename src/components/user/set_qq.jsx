@@ -5,6 +5,7 @@ import template from '../index';
 import Header from '../common/header/header';
 
 import * as axios from '../../public/js/axios.js';
+import throttle from '../../public/js/common.js';
 import './user.scss';
 
 class SetQQ extends Component {
@@ -21,22 +22,30 @@ class SetQQ extends Component {
     const usrQQ = this.state.usrQQ;
     const testQQ = /[1-9]([0-9]{5,12})/;
     if (testQQ.test(usrQQ)) {
-      const req = {
-        url: '',
-        data: {
-          usrQQ: usrQQ
-        },
+      throttle(this._send(), 5000, false, false)
+    } else {
+      message.error('QQ号为6-13位数字');
+    }
+  }
+  _send = () => {
+    const req = {
+        url: `user/update/qq/${this.state.usrQQ}`,
+        data: {},
         token: this.props.getUsrLogin.token
       }
       axios._post(req)
       .then(res => {
         window.console.log(res)
+        if (!res.data.code) {
+          message.success('修改QQ成功！');
+          setTimeout( () => {
+            this.props.history.push('/user');
+          }, 1000);
+        } else {
+          
+        }
       })
-    } else {
-      message.error('QQ号为6-13位数字');
-    }
   }
-
   render() {
     return (
       <div>
