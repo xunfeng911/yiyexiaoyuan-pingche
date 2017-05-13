@@ -1,6 +1,7 @@
 @import '../../../public/css/pubilc.scss';
 
 .pc_modal {
+  z-index: 9999;
   position: fixed;
   top: 0;
   display: flex;

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from '../components/home/home';
 import Announce from '../components/announce/announce';
+import MyPro from '../components/mypro/mypro';
+
 import User from '../components/user/user';
 import UsrInfo from '../components/user/usr_info';
 import SetQQ from '../components/user/set_qq';
@@ -26,6 +28,7 @@ const RouteConfig = () => (
       <Route path='/usrInfo' exact component={UsrInfo} />
       <Route path='/setqq' exact component={SetQQ} />
       <Route path='/setname' exact component={SetName} />
+      <Route path='/mypro' exact component={MyPro} />
     </Switch>
   </Router>
 )

@@ -50,8 +50,8 @@
   &-li {
     padding: 0 5%;
     border-bottom: 2px solid $borderColor;
-    height: 2.4rem;
-    line-height: 2.4rem;
+    height: 3rem;
+    line-height: 3rem;
     background: $bgWhite;
     span {
       margin-left: 1.2rem;
@@ -62,7 +62,7 @@
   }
   .anticon-right {
     float: right;
-    line-height: 2.4rem;
+    line-height: 3rem;
     color: $textColor;
   }
   &-btn {
@@ -80,7 +80,7 @@
     border: 0;
     border-bottom: 1px solid $borderColor;
     width: 100%;
-    height: 2.4rem;
+    height: 3rem;
     font-size: .8rem;
   }
   &-tip {
@@ -89,6 +89,6 @@
   &-btn {
     margin-top: 2rem;
     width: 90%;
-    height: 2.4rem;
+    height: 3rem;
   }
 }

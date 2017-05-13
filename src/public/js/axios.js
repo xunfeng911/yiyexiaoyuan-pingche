@@ -4,7 +4,7 @@ import axios from 'axios';
 // let valToken = store.get('token') || '';
 // window.console.log(valToken);
 export let http = axios.create({
-  baseURL: 'http://stormma.ngrok.cc/api',
+  baseURL: 'http://back.xrent.cn:8557/api',
   timeout: 5000,
   withCredentials: true, // 允许跨域 cookie
   headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' }

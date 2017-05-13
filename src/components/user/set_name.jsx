@@ -5,7 +5,7 @@ import template from '../index';
 import Header from '../common/header/header';
 
 import * as axios from '../../public/js/axios.js';
-import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import './user.scss';
 
 class SetName extends Component {
@@ -31,9 +31,9 @@ class SetName extends Component {
     const req = {
       url: `user/update/username/${this.state.usrName}`,
       data: {},
-      token: this.props.getUsrLogin.token
+      token: this.props.getUserInfo.token
     }
-    axios._post(req)
+    axios._put(req)
     .then(res => {
       window.console.log(res);
       if (!res.data.code) {
@@ -57,7 +57,7 @@ class SetName extends Component {
               <p>以英文字母或汉字组成，不可大于12个字符</p>
               <p className="red">用户名仅可修改一次</p>
             </div>
-            <button className="set-btn btn" onClick={throttle(this.sendName, 5000)}>修改</button>
+            <button className="set-btn btn" onClick={debounce(this.sendName, 200)}>修改</button>
           </div>
         </div>
       </div>

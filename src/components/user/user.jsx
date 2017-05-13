@@ -62,10 +62,10 @@ class User extends Component {
               </div>
               <div className="usr-list-li">
                 <div className="usr-list-li-icon">
-                  <Link to="/"><Icon type="car" /></Link>
+                  <Link to="/mypro"><Icon type="car" /></Link>
                 </div>
                 <div className="usr-list-li-tit">
-                  <Link to="/"><span>我的行程</span></Link>
+                  <Link to="/mypro"><span>我的行程</span></Link>
                 </div>
               </div>
             </div>

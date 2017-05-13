@@ -5,7 +5,7 @@ import template from '../index';
 import Header from '../common/header/header';
 
 import * as axios from '../../public/js/axios.js';
-import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import './user.scss';
 
 class SetQQ extends Component {
@@ -31,9 +31,9 @@ class SetQQ extends Component {
     const req = {
         url: `user/update/qq/${this.state.usrQQ}`,
         data: {},
-        token: this.props.getUsrLogin.token
+        token: this.props.getUserInfo.token
       }
-      axios._post(req)
+      axios._put(req)
       .then(res => {
         window.console.log(res)
         if (!res.data.code) {
@@ -53,7 +53,7 @@ class SetQQ extends Component {
         <div className="index-cont">
           <div className="set">
             <input type="text" value={this.state.usrQQ} onChange={this.qqChange} className="set-input" placeholder="请填入真实QQ号提高拼车效率" required />
-            <button className="set-btn btn" onClick={throttle(this.sendQQ, 5000)}>修改</button>
+            <button className="set-btn btn" onClick={debounce(this.sendQQ, 200)}>修改</button>
           </div>
         </div>
       </div>
