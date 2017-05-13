@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { message } from 'antd';
+import { message, Icon, BackTop } from 'antd';
 
 import template from '../index';
 import Header from '../common/header/header';
@@ -7,6 +7,7 @@ import JoinCard from './join_card/join_card';
 import PcModal from '../common/modal/modal';
 import PopNot from '../common/pop_not/pop_not';
 
+import './mypro.scss';
 import * as axios from '../../public/js/axios.js';
 import { getMyDate } from '../../public/js/common.js';
 
@@ -15,11 +16,11 @@ class MyPro extends Component {
     super(props)
     this.state = {
       cards: [],
-      popData: {},
+      popData: [],
       modal_text: '确定要取消行程吗？',
       modalShow: false,
       index: 0,
-      PopIsShow: true
+      PopIsShow: false
     }
   }
 
@@ -40,6 +41,7 @@ class MyPro extends Component {
       window.console.log(res)
       if (!res.data.code) {
         this.setState({ popData: res.data.data, PopIsShow: true });
+        window.console.log(res.data.data);
       }
     })
   }
@@ -131,8 +133,31 @@ class MyPro extends Component {
         <PcModal modalConfirm={this.modalConfirm} modalCancel={this.modalCancel}
           text={this.state.modal_text} isShow={this.state.modalShow} />
         <PopNot PopIsShow={this.state.PopIsShow} PopCancel={this.PopCancel}>
-          <div>aa</div>
+          <div className="mypro_pop">
+            {this.state.popData.map(usr => {
+              return (
+                <div className="mypro_pop-list" key={usr.uid}>
+                  <div>
+                    <Icon type="idcard" />
+                    <span>用户：</span>
+                    <span>{usr.userName}</span>
+                  </div>
+                  <div>
+                    <Icon type="mobile" />
+                    <span>手机：</span>
+                    <span>{usr.mobile}</span>
+                  </div>
+                  <div>
+                    <i className="pcicon pcicon-QQ"></i>
+                    <span>企鹅：</span>
+                    <span>{usr.qq}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </PopNot>
+        <BackTop />
       </div>
     )
   }

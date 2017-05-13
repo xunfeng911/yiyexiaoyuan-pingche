@@ -12,13 +12,13 @@
   background: rgba(0, 0, 0, .4);
   > div {
     width: 70%;
+    min-width: 200px;
   }
   &-cont {
     border-radius: 5px;
     border: 1px solid $btnColor;
     padding: 2rem .5rem;
-    width: 100%;
-    min-height: 300px;
+    // min-height: 300px;
     background: $bgWhite;
   }
   &-close {

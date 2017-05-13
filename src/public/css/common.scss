@@ -31,6 +31,11 @@ body {
   color: $btnColor;
 }
 
+.ant-back-top {
+  right: 1.5rem !important;
+  bottom: 1.5rem !important;
+}
+
 @media only screen and (min-width: 319px) {
   html,body {
     font-size:75% !important;

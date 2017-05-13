@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { message } from 'antd';
+import { message, BackTop } from 'antd';
 
 import template from '../index';
 import Header from '../common/header/header';
@@ -69,7 +68,15 @@ class Home extends Component {
   // componentWillUnmount () {
   //   // 组件销毁时
   // }
-
+  // 发起拼车
+  goAnc = () => {
+    let _goAnc = () => {
+      setTimeout( () => {
+        this.props.history.push('/anc');
+      }, 1000);
+    }
+    isUserLogined.bind(this)(_goAnc);
+  }
   // 修改日期
   dateChange = (moment, value) => {
     this.setState({date: value})
@@ -134,7 +141,7 @@ class Home extends Component {
         <Header history={this.props.history} back={true} user={false} title={'一页校园'}></Header>
         <div className="index-cont">
           <div className="home">
-            <Link to="/anc"><button className={btnClass}>发起拼车</button></Link>
+            <button className={btnClass} onClick={this.goAnc}>发起拼车</button>
             <div className="home-date">
               <HomeDatePicker dateChange={this.dateChange}/>
             </div>
@@ -147,6 +154,7 @@ class Home extends Component {
         </div>
         <PcModal modalConfirm={this.modalConfirm} modalCancel={this.modalCancel}
           text={this.state.modal_text} isShow={this.state.modalShow} />
+        <BackTop />
       </div>
     )
   }
