@@ -1,4 +1,3 @@
-import 'core-js/fn/object/assign';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Route from './router/index.jsx'

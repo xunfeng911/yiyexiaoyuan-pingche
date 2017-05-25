@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import * as action from '../redux/action/index'
+import * as action from '../redux/action/index';
 
 const Main = (component) => {
   const mapStateToProps = (state) => {

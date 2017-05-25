@@ -30,10 +30,10 @@
     display: flex;
     border-top: 1px solid $btnColor;
     button {
+      border: 0;
       width: calc(50% - 1px);
       height: 2rem;
       &:nth-child(1) {
-        border: 0;
         border-right: 1px solid $btnColor;
         background: transparent;
       }
